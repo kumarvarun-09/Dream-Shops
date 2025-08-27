@@ -59,7 +59,9 @@ public class ProductService implements IProductService {
 
     @Override
     public Product updateProduct(Long id, UpdateProductRequest request) {
-        Product existingProduct = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        Product existingProduct = productRepository
+                .findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
         Category category = categoryRepository.findByName(request.getCategory().getName());
         if (category == null) {
             categoryRepository.save(new Category(request.getCategory().getName()));
