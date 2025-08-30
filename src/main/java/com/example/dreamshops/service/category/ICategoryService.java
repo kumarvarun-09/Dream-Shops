@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.category;
 
+import com.example.dreamshops.dto.CategoryDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.model.Category;
 
@@ -10,7 +11,7 @@ public interface ICategoryService {
 
     Category getCategoryByName(String name);
 
-    List<Category> getAllCategories();
+    List<CategoryDTO> getAllCategories();
 
     Category addCategory(Category category)throws AlreadyExistsException;
 

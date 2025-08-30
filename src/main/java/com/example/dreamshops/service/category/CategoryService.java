@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.category;
 
+import com.example.dreamshops.dto.CategoryDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.Category;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,8 +30,13 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDTO> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryDTO> categoryDTOs = new ArrayList<>();
+        for(Category c: categories){
+            categoryDTOs.add(new CategoryDTO(c.getId(), c.getName()));
+        }
+        return categoryDTOs;
     }
 
     @Override

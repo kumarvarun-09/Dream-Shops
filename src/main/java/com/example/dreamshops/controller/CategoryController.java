@@ -1,5 +1,6 @@
 package com.example.dreamshops.controller;
 
+import com.example.dreamshops.dto.CategoryDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.Category;
@@ -22,8 +23,8 @@ public class CategoryController {
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllCategories() {
         try {
-            List<Category> categories = categoryService.getAllCategories();
-            return ResponseEntity.ok(new ApiResponse("Found", categories));
+            List<CategoryDTO> categories = categoryService.getAllCategories();
+            return ResponseEntity.ok(new ApiResponse("Categories", categories));
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(e.getMessage(), INTERNAL_SERVER_ERROR));

@@ -1,5 +1,6 @@
 package com.example.dreamshops.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     // This means that product class will be having a variable named 'category',
     // that column will be used for showing relation between Category table and Product table
+    @JsonIgnore
     private List<Product> products;
 
     public Category(String name) {

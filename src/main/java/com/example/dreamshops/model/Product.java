@@ -1,5 +1,6 @@
 package com.example.dreamshops.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class Product {
     //cascade = CascadeType.ALL means operations on Product will cascade to Image (e.g., save, delete).
     //
     //orphanRemoval = true means if an Image is removed from the list, it will be deleted from the DB.
+    @JsonIgnore
     private List<Image> images;
 
     public Product(String brand, String name, String description, BigDecimal price, int inventory, Category category) {
