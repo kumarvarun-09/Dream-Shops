@@ -62,7 +62,7 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public Image updteImage(Long imageId, MultipartFile file) {
+    public Image updateImage(Long imageId, MultipartFile file) {
         Image existingImage = getImageById(imageId);
         // If image is present, we'll get the image
         // Otherwise exception will be thrown
