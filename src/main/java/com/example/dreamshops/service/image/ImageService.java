@@ -23,7 +23,6 @@ public class ImageService implements IImageService {
     private final ProductRepository productRepository;
     private final String IMAGE_DOWNLOAD_PATH = "/api/v1/images/image/download/";
 
-
     @Override
     public Image getImageById(Long id) {
         return imageRepository
@@ -88,6 +87,6 @@ public class ImageService implements IImageService {
 
     @Override
     public List<Image> getAllImagesForProduct(Long productId) {
-        return List.of();
+        return imageRepository.findByProduct(productId);
     }
 }

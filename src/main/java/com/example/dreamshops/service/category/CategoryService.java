@@ -17,7 +17,7 @@ public class CategoryService implements ICategoryService {
     public final CategoryRepository categoryRepository;
 
     @Override
-    public Category getCategoryById(Long id) {
+    public Category getCategoryById(Long id) throws ResourceNotFoundException{
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
     }
@@ -53,7 +53,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public void deleteCategoryById(Long id) {
+    public void deleteCategoryById(Long id) throws ResourceNotFoundException{
         categoryRepository.findById(id)
                 .ifPresentOrElse(categoryRepository::delete, () -> {
                     throw new ResourceNotFoundException("Category not found");
