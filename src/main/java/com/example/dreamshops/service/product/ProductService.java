@@ -58,7 +58,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, UpdateProductRequest request) {
+    public Product updateProduct(Long id, UpdateProductRequest request) throws ProductNotFoundException{
         Product existingProduct = productRepository
                 .findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
@@ -98,7 +98,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getProductsByCategory(Category category) {
+    public List<Product> getProductsByCategory(String category) {
         return productRepository.findByCategoryName(category);
     }
 

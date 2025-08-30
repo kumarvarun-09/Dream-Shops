@@ -30,7 +30,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping("category/add")
     public ResponseEntity<ApiResponse> addCategory(@RequestBody Category category) {
         try {
             return ResponseEntity.ok(
@@ -45,7 +45,7 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/category/{id}")
     public ResponseEntity<ApiResponse> updateCategoryById(@PathVariable Long id, @RequestBody Category category) {
         try {
             return ResponseEntity.ok(
