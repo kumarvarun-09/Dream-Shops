@@ -5,6 +5,7 @@ import com.example.dreamshops.model.Image;
 import com.example.dreamshops.response.ApiResponse;
 import com.example.dreamshops.service.image.IImageService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -21,6 +22,8 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@Transactional // adding this because all methods in this class
+// deal with BLOB and require db operations
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("${api.prefix}/images")
