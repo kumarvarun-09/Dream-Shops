@@ -19,14 +19,15 @@ public class CategoryService implements ICategoryService {
     public final CategoryRepository categoryRepository;
 
     @Override
-    public Category getCategoryById(Long id) throws ResourceNotFoundException{
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+    public CategoryDTO getCategoryById(Long id) throws ResourceNotFoundException{
+        return new CategoryDTO(categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"))
+        );
     }
 
     @Override
-    public Category getCategoryByName(String name) {
-        return categoryRepository.findByName(name);
+    public CategoryDTO getCategoryByName(String name) {
+        return new CategoryDTO(categoryRepository.findByName(name));
     }
 
     @Override
@@ -40,23 +41,23 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category addCategory(Category category) throws AlreadyExistsException {
+    public CategoryDTO addCategory(Category category) throws AlreadyExistsException {
         Category existingCategory = categoryRepository.findByName(category.getName());
         if (existingCategory == null) {
-            return categoryRepository.save(category);
+            return new CategoryDTO(categoryRepository.save(category));
         }
         throw new AlreadyExistsException(category.getName() + " category already exists");
     }
 
     @Override
-    public Category updateCategory(Long id, Category category) {
+    public CategoryDTO updateCategory(Long id, Category category) {
         Category existingCategory = categoryRepository
                 .findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Category not found")
                 );
         existingCategory.setName(category.getName());
-        return categoryRepository.save(existingCategory);
+        return new CategoryDTO(categoryRepository.save(existingCategory));
     }
 
     @Override

@@ -7,15 +7,15 @@ import com.example.dreamshops.model.Category;
 import java.util.List;
 
 public interface ICategoryService {
-    Category getCategoryById(Long id);
+    CategoryDTO getCategoryById(Long id);
 
-    Category getCategoryByName(String name);
+    CategoryDTO getCategoryByName(String name);
 
     List<CategoryDTO> getAllCategories();
 
-    Category addCategory(Category category)throws AlreadyExistsException;
+    CategoryDTO addCategory(Category category)throws AlreadyExistsException;
 
-    Category updateCategory(Long id, Category category);
+    CategoryDTO updateCategory(Long id, Category category);
 
     void deleteCategoryById(Long id);
 }

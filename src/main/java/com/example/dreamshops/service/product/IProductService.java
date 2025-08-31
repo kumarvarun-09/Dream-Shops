@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.product;
 
+import com.example.dreamshops.dto.ProductDTO;
 import com.example.dreamshops.request.AddProductRequest;
 import com.example.dreamshops.model.Category;
 import com.example.dreamshops.model.Product;
@@ -8,27 +9,27 @@ import com.example.dreamshops.request.UpdateProductRequest;
 import java.util.List;
 
 public interface IProductService {
-    Product getProductById(Long id);
+    ProductDTO getProductById(Long id);
 
-    Product addProduct(AddProductRequest product);
+    ProductDTO addProduct(AddProductRequest product);
 
-    Product updateProduct(Long id, UpdateProductRequest product);
+    ProductDTO updateProduct(Long id, UpdateProductRequest product);
 
     void deleteProduct(Long id);
 
-    List<Product> getAllProducts();
+    List<ProductDTO> getAllProducts();
 
-    List<Product> getProductsByCategoryId(Long categoryId);
+    List<ProductDTO> getProductsByCategoryId(Long categoryId);
 
-    List<Product> getProductsByCategory(String category);
+    List<ProductDTO> getProductsByCategory(String category);
 
-    List<Product> getProductsByBrand(String brand);
+    List<ProductDTO> getProductsByBrand(String brand);
 
-    List<Product> getProductsByCategoryAndBrand(String category, String brand);
+    List<ProductDTO> getProductsByCategoryAndBrand(String category, String brand);
 
-    List<Product> getProductsByName(String name);
+    List<ProductDTO> getProductsByName(String name);
 
-    List<Product> getProductsByBrandAndName(String brand, String name);
+    List<ProductDTO> getProductsByBrandAndName(String brand, String name);
 
     Long countProductsByBrandAndName(String brand, String name);
 

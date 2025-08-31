@@ -1,5 +1,6 @@
 package com.example.dreamshops.controller;
 
+import com.example.dreamshops.dto.ProductDTO;
 import com.example.dreamshops.exceptions.ProductNotFoundException;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.Product;
@@ -61,7 +62,7 @@ public class ProductController {
     }
 
     @PutMapping("product/{id}")
-    ResponseEntity<ApiResponse> updateProductById(@PathVariable Long id, UpdateProductRequest product) {
+    ResponseEntity<ApiResponse> updateProductById(@PathVariable Long id, @RequestBody UpdateProductRequest product) {
         try {
             return ResponseEntity.ok(
                     new ApiResponse("Updated", productService.updateProduct(id, product))
@@ -92,7 +93,7 @@ public class ProductController {
     @GetMapping("/byBrandAndName")
     ResponseEntity<ApiResponse> getProductByBrandAndName(@RequestParam String brandName, @RequestParam String productName) {
         try {
-            List<Product> products = productService.getProductsByBrandAndName(brandName, productName);
+            List<ProductDTO> products = productService.getProductsByBrandAndName(brandName, productName);
             if (products == null || products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND)
                         .body(new ApiResponse("No product found with brand and name", null)
@@ -110,7 +111,7 @@ public class ProductController {
     @GetMapping("/byCategoryAndBrand")
     ResponseEntity<ApiResponse> getProductsByCategoryAndBrand(@RequestParam String categoryName, @RequestParam String brandName) {
         try {
-            List<Product> products = productService.getProductsByCategoryAndBrand(categoryName, brandName);
+            List<ProductDTO> products = productService.getProductsByCategoryAndBrand(categoryName, brandName);
             if (products == null || products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND)
                         .body(new ApiResponse("No product found with category and brand", null)
@@ -128,7 +129,7 @@ public class ProductController {
     @GetMapping("/byName/{name}")
     ResponseEntity<ApiResponse> getProductsByName(@PathVariable String name) {
         try {
-            List<Product> products = productService.getProductsByName(name);
+            List<ProductDTO> products = productService.getProductsByName(name);
             if (products == null || products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND)
                         .body(new ApiResponse("No product found with name", null)
@@ -146,10 +147,10 @@ public class ProductController {
     @GetMapping("/byBrand/{brand}")
     ResponseEntity<ApiResponse> getProductsByBrand(@PathVariable String brand) {
         try {
-            List<Product> products = productService.getProductsByBrand(brand);
+            List<ProductDTO> products = productService.getProductsByBrand(brand);
             if (products == null || products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND)
-                        .body(new ApiResponse("No product found with name", null)
+                        .body(new ApiResponse("No product found with brand name", null)
                         );
             }
             return ResponseEntity.ok(
@@ -164,7 +165,7 @@ public class ProductController {
     @GetMapping("/byCategory/{category}")
     ResponseEntity<ApiResponse> getProductsByCategory(@PathVariable String category) {
         try {
-            List<Product> products = productService.getProductsByCategory(category);
+            List<ProductDTO> products = productService.getProductsByCategory(category);
             if (products == null || products.isEmpty()) {
                 return ResponseEntity.status(NOT_FOUND)
                         .body(new ApiResponse("No product found with category", null)

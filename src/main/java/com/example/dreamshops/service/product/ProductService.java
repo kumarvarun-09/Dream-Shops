@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.product;
 
+import com.example.dreamshops.dto.ProductDTO;
 import com.example.dreamshops.exceptions.ProductNotFoundException;
 import com.example.dreamshops.request.AddProductRequest;
 import com.example.dreamshops.model.Category;
@@ -10,6 +11,7 @@ import com.example.dreamshops.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,11 +21,11 @@ public class ProductService implements IProductService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Product getProductById(Long id) {
-        return productRepository.findById(id)
+    public ProductDTO getProductById(Long id) {
+        return new ProductDTO(productRepository.findById(id)
                 .orElseThrow(
                         () -> new ProductNotFoundException("Product not found")
-                );
+                ));
 
 //        You could write the same thing using an anonymous class:
 //        return productRepository.findById(id).orElseThrow(new Supplier<ProductNotFoundException>() {
@@ -37,7 +39,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product addProduct(AddProductRequest request) {
+    public ProductDTO addProduct(AddProductRequest request) {
         Category category = categoryRepository.findByName(request.getCategory().getName());
         if (category == null) {
             categoryRepository.save(new Category(request.getCategory().getName()));
@@ -45,7 +47,7 @@ public class ProductService implements IProductService {
         }
         // If category is already present in db, we just save the product
         // Else firstly we save the category into the db, then we save product
-        return productRepository.save(createProduct(request, category));
+        return new ProductDTO(productRepository.save(createProduct(request, category)));
     }
 
     private Product createProduct(AddProductRequest request, Category category) {
@@ -58,11 +60,17 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, UpdateProductRequest request) throws ProductNotFoundException{
+    public ProductDTO updateProduct(Long id, UpdateProductRequest request) throws ProductNotFoundException {
         Product existingProduct = productRepository
                 .findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
-        Category category = categoryRepository.findByName(request.getCategory().getName());
+        Category category = null;
+        if (request != null
+                && request.getCategory() != null
+                && request.getCategory().getName() != null
+                && !request.getCategory().getName().isEmpty()) {
+            category = categoryRepository.findByName(request.getCategory().getName());
+        }
         if (category == null) {
             categoryRepository.save(new Category(request.getCategory().getName()));
             category = categoryRepository.findByName(request.getCategory().getName());
@@ -75,7 +83,7 @@ public class ProductService implements IProductService {
         existingProduct.setPrice(request.getPrice());
         existingProduct.setInventory(request.getInventory());
         existingProduct.setCategory(category);
-        return productRepository.save(existingProduct);
+        return new ProductDTO(productRepository.save(existingProduct));
     }
 
     @Override
@@ -88,38 +96,74 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        for (Product p: products)
+        {
+            productDTOs.add(new ProductDTO(p));
+        }
+        return productDTOs;
     }
 
     @Override
-    public List<Product> getProductsByCategoryId(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+    public List<ProductDTO> getProductsByCategoryId(Long categoryId) {
+        List<Product> existingProducts = productRepository.findByCategoryId(categoryId);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product p: existingProducts){
+            productDTOS.add(new ProductDTO(p));
+        }
+        return productDTOS;
     }
 
     @Override
-    public List<Product> getProductsByCategory(String category) {
-        return productRepository.findByCategoryName(category);
+    public List<ProductDTO> getProductsByCategory(String category) {
+        List<Product> existingProducts = productRepository.findByCategoryName(category);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product p: existingProducts){
+            productDTOS.add(new ProductDTO(p));
+        }
+        return productDTOS;
     }
 
     @Override
-    public List<Product> getProductsByBrand(String brand) {
-        return productRepository.findByBrand(brand);
+    public List<ProductDTO> getProductsByBrand(String brand) {
+        List<Product> existingProducts = productRepository.findByBrand(brand);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product p: existingProducts){
+            productDTOS.add(new ProductDTO(p));
+        }
+        return productDTOS;
     }
 
     @Override
-    public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
-        return productRepository.findByCategoryNameAndBrand(category, brand);
+    public List<ProductDTO> getProductsByCategoryAndBrand(String category, String brand) {
+        List<Product> existingProducts = productRepository.findByCategoryNameAndBrand(category, brand);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product p: existingProducts){
+            productDTOS.add(new ProductDTO(p));
+        }
+        return productDTOS;
     }
 
     @Override
-    public List<Product> getProductsByName(String name) {
-        return productRepository.findByName(name);
+    public List<ProductDTO> getProductsByName(String name) {
+        List<Product> existingProducts = productRepository.findByName(name);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product p: existingProducts){
+            productDTOS.add(new ProductDTO(p));
+        }
+        return productDTOS;
     }
 
     @Override
-    public List<Product> getProductsByBrandAndName(String brand, String name) {
-        return productRepository.findByBrandAndName(brand, name);
+    public List<ProductDTO> getProductsByBrandAndName(String brand, String name) {
+        List<Product> existingProducts = productRepository.findByBrandAndName(brand, name);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product p: existingProducts){
+            productDTOS.add(new ProductDTO(p));
+        }
+        return productDTOS;
     }
 
     @Override
