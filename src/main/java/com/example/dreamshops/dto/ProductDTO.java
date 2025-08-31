@@ -37,7 +37,9 @@ public class ProductDTO {
         this.price = p.getPrice();
         this.inventory = p.getInventory();
         this.category = new CategoryDTO(p.getCategory());
-
-        List<ImageDTO> images = p.getImages().stream().map(ImageDTO::new).toList();
+        var productImages = p.getImages();
+        if (productImages != null) {
+            images = p.getImages().stream().map(ImageDTO::new).toList();
+        }
     }
 }
