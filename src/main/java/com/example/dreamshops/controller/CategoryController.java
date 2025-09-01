@@ -23,7 +23,9 @@ public class CategoryController {
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllCategories() {
         try {
-            List<CategoryDTO> categories = categoryService.getAllCategories();
+            List<CategoryDTO> categories = categoryService.getConvertedCategoryDTOs(
+                    categoryService.getAllCategories()
+            );
             return ResponseEntity.ok(new ApiResponse("Categories", categories));
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR)
@@ -35,7 +37,11 @@ public class CategoryController {
     public ResponseEntity<ApiResponse> addCategory(@RequestBody Category category) {
         try {
             return ResponseEntity.ok(
-                    new ApiResponse("Success", categoryService.addCategory(category))
+                    new ApiResponse("Success",
+                            categoryService.convertToDTO(
+                                    categoryService.addCategory(category)
+                            )
+                    )
             );
         } catch (AlreadyExistsException e) {
             return ResponseEntity.status(CONFLICT)
@@ -51,7 +57,10 @@ public class CategoryController {
         try {
             return ResponseEntity.ok(
                     new ApiResponse("Updated Successfully!",
-                            categoryService.updateCategory(id,category))
+                            categoryService.convertToDTO(
+                                    categoryService.updateCategory(id, category)
+                            )
+                    )
             );
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND)
@@ -66,7 +75,11 @@ public class CategoryController {
     public ResponseEntity<ApiResponse> getCategoryById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(
-                    new ApiResponse("Found", categoryService.getCategoryById(id))
+                    new ApiResponse("Found",
+                            categoryService.convertToDTO(
+                                    categoryService.getCategoryById(id)
+                            )
+                    )
             );
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND)
@@ -81,7 +94,11 @@ public class CategoryController {
     public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable(name = "categoryName") String name) {
         try {
             return ResponseEntity.ok(
-                    new ApiResponse("Found", categoryService.getCategoryByName(name))
+                    new ApiResponse("Found",
+                            categoryService.convertToDTO(
+                                    categoryService.getCategoryByName(name)
+                            )
+                    )
             );
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND)
@@ -107,5 +124,4 @@ public class CategoryController {
                     .body(new ApiResponse(e.getMessage(), null));
         }
     }
-
 }

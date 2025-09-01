@@ -9,28 +9,30 @@ import com.example.dreamshops.request.UpdateProductRequest;
 import java.util.List;
 
 public interface IProductService {
-    ProductDTO getProductById(Long id);
+    Product getProductById(Long id);
 
-    ProductDTO addProduct(AddProductRequest product);
+    Product addProduct(AddProductRequest product);
 
-    ProductDTO updateProduct(Long id, UpdateProductRequest product);
+    Product updateProduct(Long id, UpdateProductRequest product);
 
     void deleteProduct(Long id);
 
-    List<ProductDTO> getAllProducts();
+    List<Product> getAllProducts();
 
-    List<ProductDTO> getProductsByCategoryId(Long categoryId);
+    List<Product> getProductsByCategoryId(Long categoryId);
 
-    List<ProductDTO> getProductsByCategory(String category);
+    List<Product> getProductsByCategory(String category);
 
-    List<ProductDTO> getProductsByBrand(String brand);
+    List<Product> getProductsByBrand(String brand);
 
-    List<ProductDTO> getProductsByCategoryAndBrand(String category, String brand);
+    List<Product> getProductsByCategoryAndBrand(String category, String brand);
 
-    List<ProductDTO> getProductsByName(String name);
+    List<Product> getProductsByName(String name);
 
-    List<ProductDTO> getProductsByBrandAndName(String brand, String name);
+    List<Product> getProductsByBrandAndName(String brand, String name);
 
     Long countProductsByBrandAndName(String brand, String name);
 
+    ProductDTO convertToDTO(Product product);
+    List<ProductDTO> getConvertedProductDTOs(List<Product> products);
 }

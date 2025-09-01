@@ -7,15 +7,18 @@ import com.example.dreamshops.model.Category;
 import java.util.List;
 
 public interface ICategoryService {
-    CategoryDTO getCategoryById(Long id);
+    Category getCategoryById(Long id);
 
-    CategoryDTO getCategoryByName(String name);
+    Category getCategoryByName(String name);
 
-    List<CategoryDTO> getAllCategories();
+    List<Category> getAllCategories();
 
-    CategoryDTO addCategory(Category category)throws AlreadyExistsException;
+    Category addCategory(Category category)throws AlreadyExistsException;
 
-    CategoryDTO updateCategory(Long id, Category category);
+    Category updateCategory(Long id, Category category);
 
     void deleteCategoryById(Long id);
+
+    List<CategoryDTO> getConvertedCategoryDTOs(List<Category> categories);
+    CategoryDTO convertToDTO(Category category);
 }
