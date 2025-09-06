@@ -21,4 +21,25 @@ public class Cart {
     BigDecimal totalAmount;
     @OneToMany(mappedBy = "cart_id", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<CartItem> cartItems;
+
+    public void addItem(CartItem item){
+        item.calculateTotalPrice();
+        this.cartItems.add(item);
+        item.setCart(this);
+        this.calculateTotalAmount();
+    }
+
+    public void removeItem(CartItem item){
+        this.cartItems.remove(item);
+        item.setCart(null);
+        this.calculateTotalAmount();
+    }
+
+    public BigDecimal calculateTotalAmount(){
+        totalAmount = BigDecimal.valueOf(0);
+        for(CartItem cartItem: cartItems){
+            totalAmount = totalAmount.add(cartItem.calculateTotalPrice());
+        }
+        return totalAmount;
+    }
 }

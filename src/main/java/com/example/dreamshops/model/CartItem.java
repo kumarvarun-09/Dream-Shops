@@ -1,12 +1,18 @@
 package com.example.dreamshops.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class CartItem {
     @Id
     Long id;
@@ -20,7 +26,7 @@ public class CartItem {
     BigDecimal unitPrice;
     BigDecimal totalPrice;
 
-    public void calculateTotalPrice(){
-        totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
+    public BigDecimal calculateTotalPrice(){
+        return totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 }
