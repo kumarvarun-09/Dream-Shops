@@ -4,6 +4,7 @@ import com.example.dreamshops.dto.CartDTO;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.response.ApiResponse;
 import com.example.dreamshops.service.cart.ICartService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,8 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("{cartId}")
+    @Transactional
+    @DeleteMapping("/{cartId}")
     public ResponseEntity<ApiResponse> deleteCart(@PathVariable Long cartId) {
         try {
             cartService.clearCart(cartId);

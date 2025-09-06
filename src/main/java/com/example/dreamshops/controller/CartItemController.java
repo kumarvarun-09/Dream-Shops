@@ -5,6 +5,7 @@ import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.CartItem;
 import com.example.dreamshops.response.ApiResponse;
 import com.example.dreamshops.service.cart.ICartItemService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,8 @@ public class CartItemController {
         }
     }
 
-    @DeleteMapping("delete/{cartId}/item/{productId}")
+    @Transactional
+    @DeleteMapping("/delete/{cartId}/item/{productId}")
     public ResponseEntity<ApiResponse> removeItemFromCart(@PathVariable Long cartId,
                                                           @PathVariable Long productId) {
         try {
