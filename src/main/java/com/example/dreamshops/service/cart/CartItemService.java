@@ -19,7 +19,7 @@ public class CartItemService implements ICartItemService {
     private final IProductService productService;
 
     @Override
-    public void addItemToCart(Long cartId, Long productId, Long quantity) {
+    public CartItem addItemToCart(Long cartId, Long productId, Long quantity) throws ResourceNotFoundException{
         Cart cart = cartService.getCart(cartId);
         Product product = productService.getProductById(productId);
         CartItem cartItem;
@@ -36,19 +36,22 @@ public class CartItemService implements ICartItemService {
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
         }
-        cart.addItem(cartItemRepository.save(cartItem));
+        cartItem = cartItemRepository.save(cartItem);
+        cart.addItem(cartItem);
         cartRepository.save(cart);
+        return cartItem;
     }
 
     @Override
-    public void updateItemInCart(Long cartId, Long productId, Long quantity) {
+    public CartItem updateItemInCart(Long cartId, Long productId, Long quantity) {
         Cart cart = cartService.getCart(cartId);
         CartItem item = getCartItem(cartId, productId);
         item.setUnitPrice(item.getProduct().getPrice());
         item.setQuantity(quantity);
         item.calculateTotalPrice();
-        cartItemRepository.save(item);
+        item = cartItemRepository.save(item);
         cartRepository.save(cart);
+        return item;
     }
 
     @Override

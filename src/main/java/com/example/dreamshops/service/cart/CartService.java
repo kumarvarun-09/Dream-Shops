@@ -37,4 +37,8 @@ public class CartService implements ICartService {
     public BigDecimal getTotalPrice(Long id) {
         return this.getCart(id).calculateTotalAmount();
     }
+
+    public Cart createNewCart(){
+        return cartRepository.save(new Cart());
+    }
 }

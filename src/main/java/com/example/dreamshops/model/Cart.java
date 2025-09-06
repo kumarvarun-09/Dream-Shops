@@ -19,7 +19,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     BigDecimal totalAmount;
-    @OneToMany(mappedBy = "cart_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<CartItem> cartItems;
 
     public void addItem(CartItem item){

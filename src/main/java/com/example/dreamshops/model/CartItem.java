@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @Entity
 public class CartItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
@@ -26,7 +27,7 @@ public class CartItem {
     BigDecimal unitPrice;
     BigDecimal totalPrice;
 
-    public BigDecimal calculateTotalPrice(){
+    public BigDecimal calculateTotalPrice() {
         return totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 }
