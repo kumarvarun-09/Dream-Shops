@@ -1,6 +1,7 @@
 package com.example.dreamshops.controller;
 
 import com.example.dreamshops.dto.CartDTO;
+import com.example.dreamshops.dto.CartItemDTO;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.CartItem;
 import com.example.dreamshops.response.ApiResponse;
@@ -27,7 +28,7 @@ public class CartItemController {
             CartItem item = cartItemService.addItemToCart(cartId, productId, quantity);
             return ResponseEntity.ok()
                     .body(new ApiResponse("Success",
-                                    new CartDTO(item)
+                                    new CartItemDTO(item)
                             )
                     );
         } catch (ResourceNotFoundException e) {
@@ -65,7 +66,7 @@ public class CartItemController {
             CartItem item = cartItemService.updateItemInCart(cartId, productId, quantity);
             return ResponseEntity.ok()
                     .body(new ApiResponse("Updated",
-                                    new CartDTO(item)
+                                    new CartItemDTO(item)
                             )
                     );
         } catch (ResourceNotFoundException e) {

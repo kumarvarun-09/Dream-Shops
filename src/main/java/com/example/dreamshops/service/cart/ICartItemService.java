@@ -1,7 +1,6 @@
 package com.example.dreamshops.service.cart;
 
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
-import com.example.dreamshops.model.Cart;
 import com.example.dreamshops.model.CartItem;
 
 public interface ICartItemService {

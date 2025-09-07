@@ -3,32 +3,31 @@ package com.example.dreamshops.dto;
 
 import com.example.dreamshops.model.Cart;
 import com.example.dreamshops.model.CartItem;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class CartDTO {
     Long cartId;
-    List<Long> cartItems;
-
-    public CartDTO() {
-        this.cartItems = new ArrayList<>();
-    }
-
-    public CartDTO(CartItem item) {
-        this.cartId = item.getCart().getId();
-        this.cartItems = new ArrayList<>();
-        this.cartItems.add(item.getId());
-    }
+    BigDecimal totalAmount;
+    Set<CartItemDTO> cartItems;
 
     public CartDTO(Cart cart) {
-        this.cartItems = new ArrayList<>();
         this.cartId = cart.getId();
-        if (cart.getCartItems() != null) {
-            for (CartItem item : cart.getCartItems()) {
-                this.cartItems.add(item.getId());
+        this.totalAmount = cart.calculateTotalAmount();
+        Set<CartItem> cartItemsOrg = cart.getCartItems();
+        if(cartItemsOrg != null){
+            cartItems = new HashSet<>();
+            for(CartItem c: cartItemsOrg)
+            {
+                cartItems.add(new CartItemDTO(c));
             }
         }
     }
