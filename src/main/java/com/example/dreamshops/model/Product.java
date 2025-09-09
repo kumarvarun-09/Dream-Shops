@@ -23,7 +23,7 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    private int inventory;
+    private Long inventory;
 
     @ManyToOne(cascade = CascadeType.ALL) // This means: Many Products can belong to one Category
     @JoinColumn(name = "category_id") // This tells JPA to use 'category_id' column for reaching to Category table
@@ -38,7 +38,7 @@ public class Product {
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
    private List<Image> images;
 
-    public Product(String brand, String name, String description, BigDecimal price, int inventory, Category category) {
+    public Product(String brand, String name, String description, BigDecimal price, Long inventory, Category category) {
         this.brand = brand;
         this.name = name;
         this.description = description;

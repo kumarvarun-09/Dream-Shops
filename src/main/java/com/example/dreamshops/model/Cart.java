@@ -17,10 +17,15 @@ import java.util.Set;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    BigDecimal totalAmount;
+    private Long id;
+    private BigDecimal totalAmount;
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<CartItem> cartItems;
+    private Set<CartItem> cartItems;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public void addItem(CartItem item) {
         item.calculateTotalPrice();
