@@ -16,6 +16,7 @@ public class CartItemDTO {
     Long quantity;
     BigDecimal unitPrice;
     BigDecimal totalPrice;
+    Long userId;
 
     public CartItemDTO(CartItem cartItem) {
         this.cartItemId = cartItem.getId();
@@ -23,6 +24,7 @@ public class CartItemDTO {
         this.quantity = cartItem.getQuantity();
         this.unitPrice = cartItem.getUnitPrice();
         this.totalPrice = cartItem.getTotalPrice();
+        this.userId = cartItem.getCart().getUser().getId();
     }
 
     public BigDecimal calculateTotalPrice() {

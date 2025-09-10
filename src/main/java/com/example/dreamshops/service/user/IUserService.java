@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.user;
 
+import com.example.dreamshops.dto.UserDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.model.User;
 import com.example.dreamshops.request.user.CreateUserRequest;
@@ -14,4 +15,5 @@ public interface IUserService {
 
     void deleteUser(Long userId);
 
+    UserDTO convertToDTO(User user);
 }

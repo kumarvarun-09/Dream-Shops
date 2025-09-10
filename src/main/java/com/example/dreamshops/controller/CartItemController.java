@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class CartItemController {
     public final ICartItemService cartItemService;
 
-    @GetMapping("/add/{cartId}")
+    @PostMapping("/add/{cartId}")
     public ResponseEntity<ApiResponse> addItemToCart(@PathVariable Long cartId,
                                                      @RequestParam Long productId,
                                                      @RequestParam Long quantity) {

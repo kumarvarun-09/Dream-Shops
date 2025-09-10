@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.user;
 
+import com.example.dreamshops.dto.UserDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.User;
@@ -7,6 +8,7 @@ import com.example.dreamshops.repository.user.UserRepository;
 import com.example.dreamshops.request.user.CreateUserRequest;
 import com.example.dreamshops.request.user.UpdateUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements IUserService {
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public User getUserById(Long userId) {
@@ -61,6 +64,10 @@ public class UserService implements IUserService {
                     throw new ResourceNotFoundException("User with id: " + userId + " not found");
                 }
         );
+    }
 
+    @Override
+    public UserDTO convertToDTO(User user){
+        return modelMapper.map(user, UserDTO.class);
     }
 }
