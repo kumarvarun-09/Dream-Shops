@@ -2,7 +2,9 @@ package com.example.dreamshops.request.product;
 
 
 import com.example.dreamshops.model.Category;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 

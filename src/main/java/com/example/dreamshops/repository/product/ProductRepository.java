@@ -1,6 +1,5 @@
 package com.example.dreamshops.repository.product;
 
-import com.example.dreamshops.model.Category;
 import com.example.dreamshops.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 

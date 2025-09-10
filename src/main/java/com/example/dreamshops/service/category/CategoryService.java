@@ -1,20 +1,14 @@
 package com.example.dreamshops.service.category;
 
 import com.example.dreamshops.dto.CategoryDTO;
-import com.example.dreamshops.dto.ImageDTO;
-import com.example.dreamshops.dto.ProductDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.Category;
-import com.example.dreamshops.model.Image;
-import com.example.dreamshops.model.Product;
 import com.example.dreamshops.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

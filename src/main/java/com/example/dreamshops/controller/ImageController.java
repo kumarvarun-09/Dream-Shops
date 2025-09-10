@@ -4,7 +4,6 @@ import com.example.dreamshops.dto.ImageDTO;
 import com.example.dreamshops.model.Image;
 import com.example.dreamshops.response.ApiResponse;
 import com.example.dreamshops.service.image.IImageService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -57,10 +56,10 @@ public class ImageController {
     }
 
     @PutMapping("image/{imageId}/update")
-    public ResponseEntity<ApiResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file){
+    public ResponseEntity<ApiResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file) {
         try {
             Image image = imageService.getImageById(imageId);
-            if(image != null){
+            if (image != null) {
                 imageService.updateImage(imageId, file);
                 return ResponseEntity.ok(new ApiResponse("Updated Successfully!", null));
             }
@@ -73,10 +72,10 @@ public class ImageController {
     }
 
     @DeleteMapping("image/{imageId}/delete")
-    public ResponseEntity<ApiResponse> deleteImage(@PathVariable Long imageId){
+    public ResponseEntity<ApiResponse> deleteImage(@PathVariable Long imageId) {
         try {
             Image image = imageService.getImageById(imageId);
-            if(image != null){
+            if (image != null) {
                 imageService.deleteImage(imageId);
                 return ResponseEntity.ok(new ApiResponse("Deleted Successfully!", null));
             }

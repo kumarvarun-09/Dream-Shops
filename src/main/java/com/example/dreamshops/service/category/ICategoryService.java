@@ -13,12 +13,13 @@ public interface ICategoryService {
 
     List<Category> getAllCategories();
 
-    Category addCategory(Category category)throws AlreadyExistsException;
+    Category addCategory(Category category) throws AlreadyExistsException;
 
     Category updateCategory(Long id, Category category);
 
     void deleteCategoryById(Long id);
 
     List<CategoryDTO> getConvertedCategoryDTOs(List<Category> categories);
+
     CategoryDTO convertToDTO(Category category);
 }

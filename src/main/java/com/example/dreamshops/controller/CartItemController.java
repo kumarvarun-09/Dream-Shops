@@ -1,6 +1,5 @@
 package com.example.dreamshops.controller;
 
-import com.example.dreamshops.dto.CartDTO;
 import com.example.dreamshops.dto.CartItemDTO;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.CartItem;

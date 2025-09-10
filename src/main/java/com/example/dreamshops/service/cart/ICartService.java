@@ -1,5 +1,6 @@
 package com.example.dreamshops.service.cart;
 
+import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.Cart;
 
 import java.math.BigDecimal;
@@ -13,5 +14,5 @@ public interface ICartService {
 
     Cart createNewCart();
 
-    Cart getCartByUserId(Long userId);
+    Cart getCartByUserId(Long userId) throws ResourceNotFoundException;
 }

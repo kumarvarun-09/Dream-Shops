@@ -1,9 +1,8 @@
 package com.example.dreamshops.service.product;
 
 import com.example.dreamshops.dto.ProductDTO;
-import com.example.dreamshops.request.product.AddProductRequest;
-import com.example.dreamshops.model.Category;
 import com.example.dreamshops.model.Product;
+import com.example.dreamshops.request.product.AddProductRequest;
 import com.example.dreamshops.request.product.UpdateProductRequest;
 
 import java.util.List;
@@ -34,5 +33,6 @@ public interface IProductService {
     Long countProductsByBrandAndName(String brand, String name);
 
     ProductDTO convertToDTO(Product product);
+
     List<ProductDTO> getConvertedProductDTOs(List<Product> products);
 }

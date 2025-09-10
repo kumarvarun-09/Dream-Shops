@@ -1,4 +1,4 @@
-package com.example.dreamshops.repository;
+package com.example.dreamshops.repository.order;
 
 import com.example.dreamshops.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

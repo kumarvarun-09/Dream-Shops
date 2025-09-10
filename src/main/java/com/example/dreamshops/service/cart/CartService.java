@@ -16,7 +16,7 @@ public class CartService implements ICartService {
     private final CartItemRepository cartItemRepository;
 
     @Override
-    public Cart getCart(Long id) throws ResourceNotFoundException{
+    public Cart getCart(Long id) throws ResourceNotFoundException {
         Cart cart = cartRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Cart with id: " + id + " not found")
@@ -38,12 +38,16 @@ public class CartService implements ICartService {
         return this.getCart(id).calculateTotalAmount();
     }
 
-    public Cart createNewCart(){
+    public Cart createNewCart() {
         return cartRepository.save(new Cart());
     }
 
     @Override
-    public Cart getCartByUserId(Long userId) {
-        return cartRepository.getCartByUserId(userId);
+    public Cart getCartByUserId(Long userId) throws ResourceNotFoundException {
+        Cart cart = cartRepository.findByUserId(userId);
+        if (cart == null) {
+            throw new ResourceNotFoundException("Cart for userId: " + userId + " not found");
+        }
+        return cart;
     }
 }

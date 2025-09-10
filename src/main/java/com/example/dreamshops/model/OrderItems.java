@@ -29,7 +29,7 @@ public class OrderItems {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderItems( Order order, Product product, Long quantity, BigDecimal price) {
+    public OrderItems(Order order, Product product, Long quantity, BigDecimal price) {
         this.quantity = quantity;
         this.price = price;
         this.order = order;

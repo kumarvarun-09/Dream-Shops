@@ -19,7 +19,7 @@ public class CartItemService implements ICartItemService {
     private final IProductService productService;
 
     @Override
-    public CartItem addItemToCart(Long cartId, Long productId, Long quantity) throws ResourceNotFoundException{
+    public CartItem addItemToCart(Long cartId, Long productId, Long quantity) throws ResourceNotFoundException {
         Cart cart = cartService.getCart(cartId);
         Product product = productService.getProductById(productId);
         CartItem cartItem;
