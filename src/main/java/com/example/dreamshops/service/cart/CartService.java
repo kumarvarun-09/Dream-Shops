@@ -2,12 +2,14 @@ package com.example.dreamshops.service.cart;
 
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
 import com.example.dreamshops.model.Cart;
+import com.example.dreamshops.model.User;
 import com.example.dreamshops.repository.cart.CartItemRepository;
 import com.example.dreamshops.repository.cart.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +25,16 @@ public class CartService implements ICartService {
                 );
         cart.calculateTotalAmount();
         return cartRepository.save(cart);
+    }
+
+    @Override
+    public Cart initializeNewCart(User user) {
+        return Optional.ofNullable(getCartByUserId(user.getId()))
+                .orElseGet(() -> {
+                    Cart cart = new Cart();
+                    cart.setUser(user);
+                    return cartRepository.save(cart);
+                });
     }
 
     @Override
