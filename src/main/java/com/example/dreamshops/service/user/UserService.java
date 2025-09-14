@@ -3,6 +3,7 @@ package com.example.dreamshops.service.user;
 import com.example.dreamshops.dto.UserDTO;
 import com.example.dreamshops.exceptions.AlreadyExistsException;
 import com.example.dreamshops.exceptions.ResourceNotFoundException;
+import com.example.dreamshops.exceptions.UserNotFoundException;
 import com.example.dreamshops.model.User;
 import com.example.dreamshops.repository.user.UserRepository;
 import com.example.dreamshops.request.user.CreateUserRequest;
@@ -23,7 +24,7 @@ public class UserService implements IUserService {
     public User getUserById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("User with id: " + userId + " not found")
+                        new UserNotFoundException("User with id: " + userId + " not found")
                 );
     }
 
@@ -36,7 +37,7 @@ public class UserService implements IUserService {
                     user.setFirstName(request.getFirstName());
                     user.setLastName(request.getLastName());
                     user.setEmail(request.getEmail());
-                    user.setEmail(request.getEmail());
+                    user.setPassword(request.getPassword());
                     return userRepository.save(user);
                 }).orElseThrow(() ->
                         new AlreadyExistsException("User with email: " + request.getEmail() + " already exists")
@@ -52,7 +53,7 @@ public class UserService implements IUserService {
                             return userRepository.save(existingUser);
                         }
                 ).orElseThrow(() ->
-                        new ResourceNotFoundException("User with id: " + userId + " not found")
+                        new UserNotFoundException("User with id: " + userId + " not found")
                 );
     }
 
@@ -61,7 +62,7 @@ public class UserService implements IUserService {
         userRepository.findById(userId).ifPresentOrElse(
                 userRepository::delete,
                 () -> {
-                    throw new ResourceNotFoundException("User with id: " + userId + " not found");
+                    throw new UserNotFoundException("User with id: " + userId + " not found");
                 }
         );
     }

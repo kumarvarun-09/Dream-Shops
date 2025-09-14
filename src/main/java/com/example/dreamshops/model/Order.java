@@ -15,13 +15,13 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    private BigDecimal totaAmount;
+    private BigDecimal totalAmount;
     private LocalDate timePlaced;
 
     @Enumerated(EnumType.STRING)
