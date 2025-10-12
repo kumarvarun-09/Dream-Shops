@@ -1,6 +1,7 @@
 package com.example.dreamshops.security.jwt;
 
 import com.example.dreamshops.security.user.ShopUserDetails;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -56,7 +57,7 @@ public class JwtUtils {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (Exception e) {
+        } catch (JwtException e) {
             return false;
         }
     }
