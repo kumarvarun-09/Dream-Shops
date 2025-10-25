@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,12 +25,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
+@EnableMethodSecurity(prePostEnabled = true)
 public class ShopConfig {
 
     private static final List<String> SECURED_URLS =
-            List.of("/api/v1/cart", "/api/v1/cartItem");
+            List.of("/api/v1/cart/**", "/api/v1/cartItem/**", "/api/v1/categories/**");
     private final ShopUserDetailsService userDetailsService;
     private final JwtAuthEntryPoint authEntryPoint;
+    private final AuthTokenFilter authTokenFilter;
 
     @Bean
     public ModelMapper modelMapper() {
@@ -41,10 +44,10 @@ public class ShopConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthTokenFilter authTokenFilter() {
-        return new AuthTokenFilter();
-    }
+//    @Bean
+//    public AuthTokenFilter authTokenFilter() {
+//        return new AuthTokenFilter();
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -59,6 +62,7 @@ public class ShopConfig {
         return authProvider;
     }
 
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception
@@ -74,7 +78,7 @@ public class ShopConfig {
                         .permitAll()
                 );
         http.authenticationProvider(daoAuthenticationProvider());
-        http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

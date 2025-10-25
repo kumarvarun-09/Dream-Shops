@@ -9,6 +9,7 @@ import com.example.dreamshops.response.ApiResponse;
 import com.example.dreamshops.service.product.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("product/add")
     ResponseEntity<ApiResponse> addProduct(@RequestBody AddProductRequest product) {
         try {
@@ -68,6 +70,7 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("product/{id}")
     ResponseEntity<ApiResponse> updateProductById(@PathVariable Long id, @RequestBody UpdateProductRequest product) {
         try {
@@ -87,6 +90,7 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("product/{id}")
     ResponseEntity<ApiResponse> deleteProductById(@PathVariable Long id) {
         try {
